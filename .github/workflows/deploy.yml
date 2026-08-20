@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages (gh-pages branch)
+name: Build and Deploy Metronome Showcase to GitHub Pages
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
@@ -14,7 +16,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    name: Build & Deploy to gh-pages branch
+    name: Build & Publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -33,7 +35,7 @@ jobs:
       - name: Verify TypeScript & Build Bundle
         run: npm run build
 
-      - name: Deploy to gh-pages Branch
+      - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
