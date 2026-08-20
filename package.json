@@ -1,7 +1,8 @@
 {
-  "name": "andolab-metronome-page",
+  "name": "andolabs-metronome",
   "private": true,
   "version": "1.0.0",
+  "homepage": "https://nikhilandola.github.io/andolabs-metronome/",
   "type": "module",
   "scripts": {
     "dev": "vite",
