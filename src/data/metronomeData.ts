@@ -5,7 +5,7 @@ export const METRONOME_APP_INFO = {
   name: "AndolaLabs Metronome",
   tagline: "Ultra Low-Latency Audio Metronome & Polyrhythm Visualizer",
   description: "Production cross-platform mobile application engineered with zero-drift Web Audio DSP timing, tri-modal haptic sync, concentric polyrhythmic phasing, and offline setlist architecture.",
-  github: "https://github.com/NikhilAndola/andolab-metronome-page",
+  github: "https://github.com/NikhilAndola/andolalabs-metronome",
   upiId: "nikhilandola@upi",
   creator: "Nikhil Andola",
   creatorPortfolioUrl: "https://nikhilandola.github.io/developer-portfolio/",
