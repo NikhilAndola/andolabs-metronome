@@ -43,7 +43,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
           <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500/20 to-slate-900 border border-cyan-500/40 group-hover:border-cyan-400 transition-all duration-300 shadow-neon-cyan overflow-hidden p-1">
             <img 
               src="/gemini-svg.svg" 
-              alt="AndoLabs Brand Icon" 
+              alt="AndolaLabs Brand Icon" 
               className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.6)]" 
             />
             {isPlaying && (
@@ -55,7 +55,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
           </div>
           <div className="flex items-center gap-2">
             <span className="font-display font-extrabold text-white group-hover:text-cyan-400 transition-colors tracking-tight text-lg sm:text-xl">
-              Ando<span className="gradient-text-cyan">Labs</span> Metronome
+              Andola<span className="gradient-text-cyan">Labs</span> Metronome
             </span>
             <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 hidden sm:inline">
               PRO DSP

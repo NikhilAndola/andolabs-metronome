@@ -23,7 +23,7 @@ export const DonateSection: React.FC = () => {
     return 'Supercharged Coffee Feast for the Month! ☕⚡';
   };
 
-  const upiUri = `upi://pay?pa=${encodeURIComponent(METRONOME_APP_INFO.upiId)}&pn=${encodeURIComponent(METRONOME_APP_INFO.creator)}&am=${amount}&cu=INR&tn=${encodeURIComponent(`Buy ${coffeeCups} Coffee for AndoLabs Metronome Developer`)}`;
+  const upiUri = `upi://pay?pa=${encodeURIComponent(METRONOME_APP_INFO.upiId)}&pn=${encodeURIComponent(METRONOME_APP_INFO.creator)}&am=${amount}&cu=INR&tn=${encodeURIComponent(`Buy ${coffeeCups} Coffee for AndolaLabs Metronome Developer`)}`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=10&data=${encodeURIComponent(upiUri)}`;
 
   return (
@@ -39,7 +39,7 @@ export const DonateSection: React.FC = () => {
           Support <span className="gradient-text-amber">Independent Music Tooling</span> ☕
         </h2>
         <p className="text-slate-400 max-w-xl mx-auto text-xs sm:text-sm">
-          If AndoLabs Metronome, the Web Audio DSP simulator, or open-source architecture brought you value, fuel development with a cup of coffee!
+          If AndolaLabs Metronome, the Web Audio DSP simulator, or open-source architecture brought you value, fuel development with a cup of coffee!
         </p>
       </div>
 
@@ -64,7 +64,7 @@ export const DonateSection: React.FC = () => {
             <div className="p-2.5 bg-white rounded-xl shadow-neon-amber border border-amber-400/80 inline-block transition-transform hover:scale-105">
               <img
                 src={qrCodeUrl}
-                alt={`UPI QR Code to Support AndoLabs Metronome - ₹${amount}`}
+                alt={`UPI QR Code to Support AndolaLabs Metronome - ₹${amount}`}
                 width={160}
                 height={160}
                 className="w-36 h-36 sm:w-40 sm:h-40 object-contain rounded-lg"
