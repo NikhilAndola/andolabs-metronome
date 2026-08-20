@@ -156,7 +156,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
             title="Developer Portfolio"
             className="p-2 sm:px-3 sm:py-2 rounded-xl bg-cyan-950/40 border border-cyan-800/60 hover:border-cyan-500 text-cyan-300 hover:text-cyan-200 transition-all flex items-center gap-1.5 text-xs font-mono group"
           >
-            <span className="hidden sm:inline">Portfolio</span>
+            <span>Portfolio</span>
             <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </a>
 

@@ -8,7 +8,7 @@ export const METRONOME_APP_INFO = {
   github: "https://github.com/NikhilAndola/andolab-metronome-page",
   upiId: "nikhilandola@upi",
   creator: "Nikhil Andola",
-  creatorPortfolioUrl: "https://github.com/NikhilAndola/developer-portfolio",
+  creatorPortfolioUrl: "https://nikhilandola.github.io/developer-portfolio/",
 };
 
 export const CASE_STUDY_PILLARS = [
