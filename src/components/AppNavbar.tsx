@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Coffee, Github, ExternalLink } from 'lucide-react';
 import { METRONOME_APP_INFO } from '../data/metronomeData';
+import andolaLabsIcon from '../assets/andolalabs_icon.svg';
 
 interface AppNavbarProps {
   isPlaying: boolean;
@@ -9,6 +10,17 @@ interface AppNavbarProps {
 }
 
 export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onToggleMute }) => {
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
     if (targetId === '#' || !targetId) {
@@ -31,7 +43,11 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 py-3 transition-all duration-300">
+    <header className={`fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-[#07080c]/85 backdrop-blur-xl border-b border-slate-800/50 shadow-lg shadow-black/40' 
+        : 'bg-gradient-to-b from-[#07080c]/80 to-transparent backdrop-blur-[2px]'
+    }`}>
       <div className="max-w-7xl mx-auto glass-panel rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-glass-card border border-slate-800/80 bg-brand-bg/85 backdrop-blur-xl">
         
         {/* Brand & Identity */}
@@ -42,7 +58,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
         >
           <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500/20 to-slate-900 border border-cyan-500/40 group-hover:border-cyan-400 transition-all duration-300 shadow-neon-cyan overflow-hidden p-1">
             <img 
-              src="/gemini-svg.svg" 
+              src={andolaLabsIcon} 
               alt="AndolaLabs Brand Icon" 
               className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.6)]" 
             />

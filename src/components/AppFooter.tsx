@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUp, Github, ExternalLink } from 'lucide-react';
 import { METRONOME_APP_INFO } from '../data/metronomeData';
+import andolaLabsIcon from '../assets/andolalabs_icon.svg';
 
 export const AppFooter: React.FC = () => {
   const scrollToTop = () => {
@@ -15,7 +16,7 @@ export const AppFooter: React.FC = () => {
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500/20 to-slate-900 border border-cyan-500/40 flex items-center justify-center p-1 shadow-neon-cyan overflow-hidden">
             <img 
-              src="/gemini-svg.svg" 
+              src={andolaLabsIcon} 
               alt="AndolaLabs Brand Icon" 
               className="w-full h-full object-contain drop-shadow-[0_0_6px_rgba(0,242,254,0.5)]" 
             />

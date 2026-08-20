@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 600" role="img" aria-labelledby="title desc">
+  <title id="title">AndolaLabs Icon</title>
+  <desc id="desc">Stylized A with mobile app, code and launch motifs.</desc>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="48%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-opacity=".18"/>
+    </filter>
+  </defs>
+
+  <g transform="translate(350 295)" filter="url(#shadow)">
+    <path d="M-245 105 C-150 205, 95 205, 245 55"
+          fill="none" stroke="url(#grad)" stroke-width="22" stroke-linecap="round"/>
+
+    <path d="M-178 145 L-42 -155 Q-28 -185 0 -185 Q28 -185 42 -155 L178 145
+             Q188 166 166 177 L121 177 Q104 177 96 159 L52 62 L-52 62 L-96 159
+             Q-104 177 -121 177 L-166 177 Q-188 166 -178 145 Z
+             M-28 13 L28 13 L0 -55 Z" fill="url(#grad)"/>
+
+    <g transform="translate(82 -88) rotate(10)">
+      <rect x="0" y="0" width="128" height="238" rx="25" fill="#0F172A" stroke="url(#grad)" stroke-width="9"/>
+      <rect x="13" y="22" width="102" height="190" rx="16" fill="#F8FAFC"/>
+      <rect x="48" y="9" width="32" height="5" rx="3" fill="#CBD5E1"/>
+      <rect x="30" y="58" width="68" height="68" rx="18" fill="url(#grad)" opacity=".12"/>
+      <path d="M50 102 L61 91 L50 80 M78 80 L67 91 L78 102 M59 108 L69 74"
+            fill="none" stroke="url(#grad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="64" cy="190" r="7" fill="#CBD5E1"/>
+    </g>
+
+    <g transform="translate(-245 -5)">
+      <rect width="92" height="72" rx="18" fill="#0F172A"/>
+      <path d="M27 42 L40 30 L27 18 M65 18 L52 30 L65 42 M45 49 L54 11"
+            fill="none" stroke="#38BDF8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <path d="M215 -112 L246 -142 L235 -101 Z" fill="#7C3AED"/>
+    <circle cx="235" cy="-78" r="7" fill="#06B6D4"/>
+  </g>
+</svg>
