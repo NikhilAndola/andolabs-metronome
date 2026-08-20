@@ -55,7 +55,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
           </div>
           <div className="flex items-center gap-2">
             <span className="font-display font-extrabold text-white group-hover:text-cyan-400 transition-colors tracking-tight text-lg sm:text-xl">
-              Beat<span className="gradient-text-cyan">Pulse</span>
+              Ando<span className="gradient-text-cyan">Labs</span> Metronome
             </span>
             <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 hidden sm:inline">
               PRO DSP

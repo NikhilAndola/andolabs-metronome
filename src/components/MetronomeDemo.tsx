@@ -146,7 +146,7 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
           <span>Interactive Audio Simulator</span>
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-white tracking-tight">
-          Metronome Pro <span className="gradient-text-cyan">Live Playground</span>
+          AndoLabs Metronome <span className="gradient-text-cyan">Live Playground</span>
         </h2>
         <p className="text-slate-400 max-w-xl mx-auto text-xs sm:text-sm">
           Zero-jitter Web Audio timing engine, dynamic sound synthesizer, and real-time beat visualization.
