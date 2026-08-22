@@ -4,25 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./andolalabs_icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="AndolaLabs - Independent Creative Software Studio engineering next-gen digital instruments, low-latency DSP audio engines, and developer platforms." />
-    <meta name="keywords" content="AndolaLabs, Audio DSP, Metronome, Digital Instruments, React Native, Web Audio API, Software Studio, Mobile Apps" />
-    <meta name="author" content="AndolaLabs" />
-    <meta property="og:title" content="AndolaLabs | Software Studio & Digital Instruments" />
-    <meta property="og:description" content="Engineering next-gen digital instruments, low-latency audio DSP engines, and high-performance cross-platform software." />
+    <meta name="description" content="Andola Labs - Independent Software Engineering Laboratory crafting high-performance applications, scalable systems, low-latency DSP engines, and modern digital tools." />
+    <meta name="keywords" content="Andola Labs, Software Engineering, Mobile Applications, Web Platforms, Systems Engineering, Audio DSP, React Native, TypeScript" />
+    <meta name="author" content="Andola Labs" />
+    <meta property="og:title" content="Andola Labs | Independent Software Engineering & Application Lab" />
+    <meta property="og:description" content="Crafting High-Performance Software, Scalable Systems & Creative Digital Applications." />
     <meta property="og:type" content="website" />
     
-    <title>AndolaLabs | Software Studio & Digital Instruments</title>
+    <title>Andola Labs | Independent Software Engineering & Application Lab</title>
     
     <!-- GitHub Pages SPA Redirect Restore Script -->
     <script type="text/javascript">
       (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&') 
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
+        if (l.search) {
+          var decoded = '';
+          if (l.search[1] === '/') {
+            decoded = l.search.slice(1).split('&').map(function(s) { 
+              return s.replace(/~and~/g, '&') 
+            }).join('?');
+          } else if (l.search.slice(1, 4) === 'p=/') {
+            decoded = l.search.slice(3).split('&').map(function(s) { 
+              return s.replace(/~and~/g, '&') 
+            }).join('?');
+          }
+          if (decoded) {
+            var basePath = l.pathname.endsWith('/') ? l.pathname.slice(0, -1) : l.pathname;
+            window.history.replaceState(null, null, basePath + decoded + l.hash);
+          }
         }
       }(window.location))
     </script>

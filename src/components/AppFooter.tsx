@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Github, ExternalLink, ShieldCheck, FileText, RotateCcw, Mail } from 'lucide-react';
+import { ArrowUp, Github, ShieldCheck, FileText, RotateCcw, Mail } from 'lucide-react';
 import { METRONOME_APP_INFO } from '../data/metronomeData';
 import andolaLabsIcon from '../assets/andolalabs_icon.svg';
 
@@ -56,17 +56,6 @@ export const AppFooter: React.FC = () => {
               <Github className="w-4 h-4" />
             </a>
 
-            <a
-              href={METRONOME_APP_INFO.creatorPortfolioUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-mono text-xs"
-              title="Developer Portfolio"
-            >
-              <span>Developer Portfolio</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-
             <button
               onClick={scrollToTop}
               className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-slate-400 hover:text-cyan-300 transition-colors group"
@@ -99,7 +88,7 @@ export const AppFooter: React.FC = () => {
         {/* Bottom Row: Copyright & DSP Highlights */}
         <div className="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-500 gap-3">
           <div>
-            © {new Date().getFullYear()} AndolaLabs Metronome. Built with Web Audio API & React Native.
+            © {new Date().getFullYear()} Andola Labs. Built with Web Audio API & React Native.
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
             <span className="text-cyan-400/90 font-semibold">Zero Audio Jitter</span>
@@ -114,3 +103,5 @@ export const AppFooter: React.FC = () => {
     </footer>
   );
 };
+
+export default AppFooter;

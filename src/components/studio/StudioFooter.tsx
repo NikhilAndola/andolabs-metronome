@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Github, ExternalLink, ShieldCheck, FileText, RotateCcw, Mail, Music } from 'lucide-react';
+import { ArrowUp, Github, ShieldCheck, FileText, RotateCcw, Mail, Music } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { STUDIO_INFO } from '../../data/studioData';
 import andolaLabsIcon from '../../assets/andolalabs_icon.svg';
@@ -23,20 +23,20 @@ export const StudioFooter: React.FC = () => {
         {/* Top Row: Brand & Quick Links */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
-          {/* Brand & Studio Info */}
+          {/* Brand Info */}
           <div className="flex items-center gap-3.5 text-center md:text-left">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-slate-900 border border-cyan-500/40 flex items-center justify-center p-1.5 shadow-neon-cyan overflow-hidden shrink-0">
               <img 
                 src={andolaLabsIcon} 
-                alt="AndolaLabs Studio Icon" 
+                alt="Andola Labs Icon" 
                 className="w-full h-full object-contain drop-shadow-[0_0_6px_rgba(0,242,254,0.5)]" 
               />
             </div>
             <div>
               <div className="font-display font-bold text-white text-base flex items-center justify-center md:justify-start gap-2">
-                <span>{STUDIO_INFO.brandName}<span className="gradient-text-cyan">{STUDIO_INFO.brandSuffix}</span></span>
+                <span>{STUDIO_INFO.brandName}<span className="gradient-text-cyan"> {STUDIO_INFO.brandSuffix}</span></span>
                 <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
-                  STUDIO HUB
+                  ANDOLA LABS
                 </span>
               </div>
               <div className="text-xs text-slate-400 font-mono">
@@ -45,14 +45,14 @@ export const StudioFooter: React.FC = () => {
             </div>
           </div>
 
-          {/* Social & Back to Top */}
+          {/* Actions & Back to Top */}
           <div className="flex items-center gap-3">
             <Link
               to="/metronome"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-cyan-950/70 border border-cyan-800 hover:border-cyan-400 text-cyan-300 font-mono text-xs transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-950/70 border border-cyan-800 hover:border-cyan-400 text-cyan-300 font-mono text-xs transition-colors"
             >
               <Music className="w-3.5 h-3.5 text-cyan-400" />
-              <span>MetroNome Web App</span>
+              <span>MetroNome App</span>
             </Link>
 
             <a
@@ -63,17 +63,6 @@ export const StudioFooter: React.FC = () => {
               title="GitHub"
             >
               <Github className="w-4 h-4" />
-            </a>
-
-            <a
-              href={STUDIO_INFO.creatorPortfolioUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-mono text-xs"
-              title="Developer Portfolio"
-            >
-              <span>Developer Portfolio</span>
-              <ExternalLink className="w-3.5 h-3.5" />
             </a>
 
             <button
@@ -105,17 +94,17 @@ export const StudioFooter: React.FC = () => {
           })}
         </div>
 
-        {/* Bottom Row: Copyright & Highlights */}
+        {/* Bottom Row: Copyright */}
         <div className="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-500 gap-3">
           <div>
-            © {new Date().getFullYear()} {STUDIO_INFO.name}. Built with Web Audio API &amp; React Native.
+            © {new Date().getFullYear()} {STUDIO_INFO.name}. Independent Software Engineering. All rights reserved.
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
-            <span className="text-cyan-400/90 font-semibold">Zero Audio Jitter</span>
+            <span className="text-cyan-400/90 font-semibold">High Performance</span>
             <span>•</span>
-            <span className="text-purple-400/90 font-semibold">Concentric Polyrhythms</span>
+            <span className="text-purple-400/90 font-semibold">Deterministic DSP</span>
             <span>•</span>
-            <span className="text-amber-400/90 font-semibold">Stage Ready</span>
+            <span className="text-amber-400/90 font-semibold">Offline Ready</span>
           </div>
         </div>
 

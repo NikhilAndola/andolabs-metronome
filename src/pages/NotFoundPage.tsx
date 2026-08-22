@@ -26,7 +26,7 @@ export const NotFoundPage: React.FC = () => {
             className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs shadow-neon-cyan hover:scale-102 transition-all"
           >
             <Home className="w-3.5 h-3.5" />
-            <span>Studio Home</span>
+            <span>Andola Labs Home</span>
           </Link>
 
           <Link

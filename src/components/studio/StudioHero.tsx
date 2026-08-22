@@ -89,20 +89,20 @@ export const StudioHero: React.FC = () => {
         {/* Lab Tagline Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-cyan-300 text-xs font-mono shadow-[0_0_20px_rgba(0,242,254,0.15)] animate-fade-in">
           <Activity className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
-          <span>INDEPENDENT DIGITAL INSTRUMENT LABORATORY</span>
+          <span>INDEPENDENT SOFTWARE ENGINEERING &amp; APPS</span>
         </div>
 
         {/* Main Hero Headline */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-white leading-[1.15] max-w-4xl mx-auto">
-          Engineering Next-Gen <br className="hidden sm:inline" />
+          Engineering High-Performance <br className="hidden sm:inline" />
           <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,242,254,0.3)]">
-            Digital Instruments
-          </span> &amp; Audio DSP
+            Software &amp; Digital Products
+          </span>
         </h1>
 
         {/* Hero Subtitle */}
         <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-sans">
-          AndolaLabs is a creative engineering studio crafting ultra low-latency Web Audio DSP engines, multisensory mobile applications, and high-performance cross-platform platforms.
+          Andola Labs is an independent software engineering laboratory crafting high-performance applications, low-latency DSP engines, and modern digital tools across diverse domains.
         </p>
 
         {/* CTA Button Group */}
@@ -128,7 +128,7 @@ export const StudioHero: React.FC = () => {
 
         </div>
 
-        {/* Real-time Studio Metrics Bar */}
+        {/* Real-time Engineering Metrics Bar */}
         <div className="pt-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
           {STUDIO_METRICS.map((metric) => (
             <div 

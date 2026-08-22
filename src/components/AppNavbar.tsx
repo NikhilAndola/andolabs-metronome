@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Volume2, VolumeX, Coffee, Github, ExternalLink, ArrowLeft } from 'lucide-react';
+import { 
+  Volume2, 
+  VolumeX, 
+  Github, 
+  Coffee,
+  ArrowLeft
+} from 'lucide-react';
 import { METRONOME_APP_INFO } from '../data/metronomeData';
 import andolaLabsIcon from '../assets/andolalabs_icon.svg';
 
@@ -10,7 +16,11 @@ interface AppNavbarProps {
   onToggleMute: () => void;
 }
 
-export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onToggleMute }) => {
+export const AppNavbar: React.FC<AppNavbarProps> = ({
+  isPlaying,
+  isMuted,
+  onToggleMute,
+}) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,24 +32,21 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    if (targetId === '#' || !targetId) {
+    if (href === '#' || !href) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    const cleanId = targetId.replace('#', '');
-    const element = document.getElementById(cleanId);
+    const id = href.replace('#', '');
+    const element = document.getElementById(id);
     if (element) {
-      const targetContent = (element.firstElementChild as HTMLElement) || element;
-      const navbarOffset = 78;
-      const targetRect = targetContent.getBoundingClientRect();
-      const offsetPosition = targetRect.top + window.pageYOffset - navbarOffset;
+      const topOffset = (element.firstElementChild as HTMLElement || element).getBoundingClientRect().top + window.pageYOffset - 78;
       window.scrollTo({
-        top: Math.max(0, offsetPosition),
+        top: Math.max(0, topOffset),
         behavior: 'smooth'
       });
-      window.history.pushState(null, '', targetId);
+      window.history.pushState(null, '', href);
     }
   };
 
@@ -51,15 +58,15 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
     }`}>
       <div className="max-w-7xl mx-auto glass-panel rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-glass-card border border-slate-800/80 bg-brand-bg/85 backdrop-blur-xl gap-4">
         
-        {/* Left: Back to Studio & Brand Identity */}
+        {/* Left: Back to Andola Labs & Brand Identity */}
         <div className="flex items-center gap-3">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition-colors text-xs font-mono group shrink-0"
-            title="Back to AndolaLabs Studio Hub"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition-colors text-xs font-mono group shrink-0"
+            title="Back to Home"
           >
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            <span className="hidden sm:inline">Studio</span>
+            <span>Back</span>
           </Link>
 
           <a 
@@ -157,19 +164,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
             className="p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-600 text-slate-200 hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono group"
           >
             <Github className="w-4 h-4 group-hover:scale-110 transition-transform text-slate-300" />
-            <span className="hidden xl:inline">GitHub</span>
-          </a>
-
-          {/* Creator Portfolio Link */}
-          <a
-            href={METRONOME_APP_INFO.creatorPortfolioUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Developer Portfolio"
-            className="p-2 sm:px-3 sm:py-2 rounded-xl bg-cyan-950/40 border border-cyan-800/60 hover:border-cyan-500 text-cyan-300 hover:text-cyan-200 transition-all flex items-center gap-1.5 text-xs font-mono group"
-          >
-            <span>Portfolio</span>
-            <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <span className="hidden sm:inline">GitHub</span>
           </a>
 
         </div>
@@ -178,3 +173,5 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
     </header>
   );
 };
+
+export default AppNavbar;

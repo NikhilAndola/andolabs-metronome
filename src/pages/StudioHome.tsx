@@ -9,7 +9,7 @@ import { StudioFooter } from '../components/studio/StudioFooter';
 
 export const StudioHome: React.FC = () => {
   useEffect(() => {
-    document.title = 'AndolaLabs | Software Studio & Digital Instruments';
+    document.title = 'Andola Labs | Independent Software Engineering & Application Lab';
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 

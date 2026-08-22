@@ -55,16 +55,15 @@ export interface TechPillar {
 }
 
 export const STUDIO_INFO = {
-  name: "AndolaLabs",
+  name: "Andola Labs",
   brandName: "Andola",
   brandSuffix: "Labs",
-  tagline: "Engineering Next-Gen Digital Instruments & High-Performance Software",
-  mission: "AndolaLabs is an independent creative software laboratory pioneering ultra low-latency DSP audio engines, multisensory mobile applications, and high-performance digital tools.",
+  tagline: "Crafting High-Performance Software, Scalable Systems & Creative Digital Applications",
+  mission: "Andola Labs is an independent software engineering laboratory building high-performance applications, scalable systems, low-latency DSP engines, and creative software tools across diverse domains.",
   creator: "Nikhil Andola",
-  creatorRole: "Founder & Lead Software Engineer",
-  creatorPortfolioUrl: "https://nikhilandola.github.io/developer-portfolio/",
+  creatorRole: "Founder & Software Engineer",
   github: "https://github.com/NikhilAndola",
-  studioRepo: "https://github.com/NikhilAndola/andolalabs-metronome",
+  githubRepo: "https://github.com/NikhilAndola/andolalabs",
   supportEmail: "support@andolalabs.com",
   location: "Global / Remote",
   establishedYear: 2026,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Sparkles, Menu, X, ArrowRight, Github } from 'lucide-react';
+import { Sparkles, Menu, X, ArrowRight, Github } from 'lucide-react';
 import { STUDIO_INFO } from '../../data/studioData';
 import andolaLabsIcon from '../../assets/andolalabs_icon.svg';
 
@@ -20,7 +20,8 @@ export const StudioNavbar: React.FC = () => {
     { label: 'Applications', href: '#apps' },
     { label: 'Engineering', href: '#engineering' },
     { label: 'In The Lab', href: '#lab' },
-    { label: 'Philosophy', href: '#philosophy' },
+    { label: 'Vision', href: '#vision' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -50,25 +51,25 @@ export const StudioNavbar: React.FC = () => {
     }`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
-        {/* Brand Logo & Live Studio Badge */}
+        {/* Brand Logo & Active Badge */}
         <Link to="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-slate-900 border border-cyan-500/40 flex items-center justify-center p-1.5 shadow-neon-cyan group-hover:scale-105 transition-transform overflow-hidden">
             <img 
               src={andolaLabsIcon} 
-              alt="AndolaLabs Studio Icon" 
+              alt="Andola Labs Icon" 
               className="w-full h-full object-contain drop-shadow-[0_0_6px_rgba(0,242,254,0.6)]" 
             />
           </div>
           <div className="flex flex-col">
             <div className="font-display font-bold text-white text-base tracking-tight flex items-center gap-1.5">
-              <span>{STUDIO_INFO.brandName}<span className="gradient-text-cyan">{STUDIO_INFO.brandSuffix}</span></span>
+              <span>{STUDIO_INFO.brandName}<span className="gradient-text-cyan"> {STUDIO_INFO.brandSuffix}</span></span>
               <span className="inline-flex items-center gap-1 text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded-full bg-emerald-950/90 text-emerald-400 border border-emerald-800/80">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                STUDIO ACTIVE
+                ACTIVE
               </span>
             </div>
             <span className="text-[10px] text-slate-400 font-mono hidden sm:inline-block">
-              Digital Instruments &amp; Audio DSP
+              Software Engineering &amp; Apps
             </span>
           </div>
         </Link>
@@ -86,19 +87,9 @@ export const StudioNavbar: React.FC = () => {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 transition-all group-hover:w-full"></span>
             </a>
           ))}
-
-          <a
-            href={STUDIO_INFO.creatorPortfolioUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-slate-400 hover:text-cyan-300 font-mono text-[11px] transition-colors pl-2 border-l border-slate-800"
-          >
-            <span>Portfolio</span>
-            <ExternalLink className="w-3 h-3" />
-          </a>
         </nav>
 
-        {/* Action Button: MetroNome CTA */}
+        {/* Action Buttons: GitHub & Launch MetroNome */}
         <div className="hidden sm:flex items-center gap-3">
           <a
             href={STUDIO_INFO.github}
@@ -155,15 +146,6 @@ export const StudioNavbar: React.FC = () => {
                 {link.label}
               </a>
             ))}
-            <a
-              href={STUDIO_INFO.creatorPortfolioUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 pt-2 border-t border-slate-900"
-            >
-              <span>Developer Portfolio</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
           </div>
 
           <Link

@@ -18,7 +18,7 @@ export const AppShowcaseGrid: React.FC = () => {
           Featured <span className="gradient-text-cyan">Applications</span>
         </h2>
         <p className="text-slate-400 text-xs sm:text-sm">
-          High-performance digital audio instruments engineered for live stage musicians, drummers, and sound engineers.
+          High-performance software and mobile applications engineered for precision, reliability, and modern workflows.
         </p>
       </div>
 
