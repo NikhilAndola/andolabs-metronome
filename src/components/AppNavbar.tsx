@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Coffee, Github, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Volume2, VolumeX, Coffee, Github, ExternalLink, ArrowLeft } from 'lucide-react';
 import { METRONOME_APP_INFO } from '../data/metronomeData';
 import andolaLabsIcon from '../assets/andolalabs_icon.svg';
 
@@ -48,39 +49,50 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
         ? 'bg-[#07080c]/85 backdrop-blur-xl border-b border-slate-800/50 shadow-lg shadow-black/40' 
         : 'bg-gradient-to-b from-[#07080c]/80 to-transparent backdrop-blur-[2px]'
     }`}>
-      <div className="max-w-7xl mx-auto glass-panel rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-glass-card border border-slate-800/80 bg-brand-bg/85 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto glass-panel rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-glass-card border border-slate-800/80 bg-brand-bg/85 backdrop-blur-xl gap-4">
         
-        {/* Brand & Identity */}
-        <a 
-          href="#" 
-          onClick={(e) => handleNavClick(e, '#')}
-          className="flex items-center gap-2.5 group"
-        >
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500/20 to-slate-900 border border-cyan-500/40 group-hover:border-cyan-400 transition-all duration-300 shadow-neon-cyan overflow-hidden p-1">
-            <img 
-              src={andolaLabsIcon} 
-              alt="AndolaLabs Brand Icon" 
-              className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.6)]" 
-            />
-            {isPlaying && (
-              <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+        {/* Left: Back to Studio & Brand Identity */}
+        <div className="flex items-center gap-3">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition-colors text-xs font-mono group shrink-0"
+            title="Back to AndolaLabs Studio Hub"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            <span className="hidden sm:inline">Studio</span>
+          </Link>
+
+          <a 
+            href="#" 
+            onClick={(e) => handleNavClick(e, '#')}
+            className="flex items-center gap-2.5 group"
+          >
+            <div className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-cyan-500/20 to-slate-900 border border-cyan-500/40 group-hover:border-cyan-400 transition-all duration-300 shadow-neon-cyan overflow-hidden p-1 shrink-0">
+              <img 
+                src={andolaLabsIcon} 
+                alt="AndolaLabs Brand Icon" 
+                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.6)]" 
+              />
+              {isPlaying && (
+                <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-display font-extrabold text-white group-hover:text-cyan-400 transition-colors tracking-tight text-base sm:text-lg">
+                Andola<span className="gradient-text-cyan">Labs</span> Metronome
               </span>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="font-display font-extrabold text-white group-hover:text-cyan-400 transition-colors tracking-tight text-lg sm:text-xl">
-              Andola<span className="gradient-text-cyan">Labs</span> Metronome
-            </span>
-            <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 hidden sm:inline">
-              PRO DSP
-            </span>
-          </div>
-        </a>
+              <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 hidden md:inline">
+                PRO DSP
+              </span>
+            </div>
+          </a>
+        </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <nav className="hidden lg:flex items-center gap-5 text-xs font-medium text-slate-300">
           <a 
             href="#demo" 
             onClick={(e) => handleNavClick(e, '#demo')}
@@ -145,7 +157,7 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({ isPlaying, isMuted, onTogg
             className="p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-600 text-slate-200 hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono group"
           >
             <Github className="w-4 h-4 group-hover:scale-110 transition-transform text-slate-300" />
-            <span className="hidden lg:inline">GitHub</span>
+            <span className="hidden xl:inline">GitHub</span>
           </a>
 
           {/* Creator Portfolio Link */}
