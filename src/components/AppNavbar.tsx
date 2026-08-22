@@ -5,7 +5,7 @@ import {
   VolumeX, 
   Github, 
   Coffee,
-  ArrowLeft
+  Home
 } from 'lucide-react';
 import { METRONOME_APP_INFO } from '../data/metronomeData';
 import andolaLabsIcon from '../assets/andolalabs_icon.svg';
@@ -58,15 +58,15 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
     }`}>
       <div className="max-w-7xl mx-auto glass-panel rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-glass-card border border-slate-800/80 bg-brand-bg/85 backdrop-blur-xl gap-4">
         
-        {/* Left: Back to Andola Labs & Brand Identity */}
+        {/* Left: Home Button & Brand Identity */}
         <div className="flex items-center gap-3">
           <Link
             to="/"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition-colors text-xs font-mono group shrink-0"
-            title="Back to Home"
+            title="Return to Andola Labs Home"
           >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            <span>Back</span>
+            <Home className="w-3.5 h-3.5 group-hover:scale-110 transition-transform text-cyan-400" />
+            <span>Home</span>
           </Link>
 
           <a 
