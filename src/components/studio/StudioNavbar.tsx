@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Menu, X, ArrowRight, Github } from 'lucide-react';
+import { Sparkles, Menu, X, ArrowRight, Github, Linkedin } from 'lucide-react';
 import { STUDIO_INFO } from '../../data/studioData';
 import andolaLabsIcon from '../../assets/andolalabs_icon.svg';
 
@@ -89,8 +89,8 @@ export const StudioNavbar: React.FC = () => {
           ))}
         </nav>
 
-        {/* Action Buttons: GitHub & Launch MetroNome */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Action Buttons: GitHub, LinkedIn & Launch MetroNome */}
+        <div className="hidden sm:flex items-center gap-2.5">
           <a
             href={STUDIO_INFO.github}
             target="_blank"
@@ -99,6 +99,16 @@ export const StudioNavbar: React.FC = () => {
             title="GitHub"
           >
             <Github className="w-4 h-4" />
+          </a>
+
+          <a
+            href={STUDIO_INFO.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-slate-400 hover:text-cyan-300 transition-colors"
+            title="LinkedIn Profile"
+          >
+            <Linkedin className="w-4 h-4 text-blue-400" />
           </a>
 
           <Link

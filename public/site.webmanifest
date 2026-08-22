@@ -1,0 +1,19 @@
+{
+  "name": "Andola Labs | Independent Software Engineering Lab",
+  "short_name": "AndolaLabs",
+  "description": "Crafting high-performance applications, scalable systems, low-latency DSP engines, and modern digital tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07080c",
+  "theme_color": "#07080c",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/andolalabs_icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["developer-tools", "music", "productivity"]
+}

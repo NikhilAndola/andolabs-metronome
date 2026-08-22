@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Sparkles, Sliders, Layers, ArrowRight } from 'lucide-react';
+import { Play, Sparkles, Sliders, Layers, ArrowRight, Smartphone } from 'lucide-react';
 import { METRONOME_APP_INFO } from '../data/metronomeData';
 
 interface AppHeroProps {
@@ -34,6 +34,14 @@ export const AppHero: React.FC<AppHeroProps> = ({ isPlaying, onTogglePlay, bpm }
 
       <div className="flex flex-col items-center text-center space-y-4 md:space-y-5">
         
+        {/* Android App Coming Soon Banner */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-emerald-950/90 via-slate-900 to-cyan-950/90 border border-emerald-500/50 text-xs font-mono shadow-[0_0_30px_rgba(16,185,129,0.25)] animate-fade-in">
+          <Smartphone className="w-4 h-4 text-emerald-400 animate-bounce" />
+          <span className="font-bold text-white tracking-tight">Android Application</span>
+          <span className="text-slate-500">•</span>
+          <span className="text-emerald-300 font-medium">Launching Soon on Google Play Store</span>
+        </div>
+
         {/* Status Badges */}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel border border-cyan-500/30 text-[11px] font-mono text-cyan-300 shadow-neon-cyan animate-subtle-float">
@@ -41,7 +49,7 @@ export const AppHero: React.FC<AppHeroProps> = ({ isPlaying, onTogglePlay, bpm }
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span>
             </span>
-            <span>Production Debut Mobile App • React Native & Web Audio</span>
+            <span>Production Debut Mobile App • React Native &amp; Web Audio</span>
           </div>
 
           <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-[11px] font-mono text-slate-400">

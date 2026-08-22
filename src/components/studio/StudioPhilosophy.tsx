@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Github, 
+  Linkedin,
   Mail, 
   Check, 
   Send, 
@@ -176,6 +177,16 @@ export const StudioPhilosophy: React.FC = () => {
               >
                 <Github className="w-4 h-4" />
                 <span>GitHub Profile</span>
+              </a>
+
+              <a
+                href={STUDIO_INFO.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-white font-mono text-xs font-semibold hover:text-cyan-300 transition-all shadow-sm"
+              >
+                <Linkedin className="w-4 h-4 text-blue-400" />
+                <span>LinkedIn Profile</span>
               </a>
 
               <button

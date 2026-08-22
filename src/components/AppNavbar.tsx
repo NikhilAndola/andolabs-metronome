@@ -4,6 +4,7 @@ import {
   Volume2, 
   VolumeX, 
   Github, 
+  Linkedin,
   Coffee,
   Home
 } from 'lucide-react';
@@ -165,6 +166,18 @@ export const AppNavbar: React.FC<AppNavbarProps> = ({
           >
             <Github className="w-4 h-4 group-hover:scale-110 transition-transform text-slate-300" />
             <span className="hidden sm:inline">GitHub</span>
+          </a>
+
+          {/* LinkedIn Button */}
+          <a
+            href={METRONOME_APP_INFO.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LinkedIn Profile"
+            className="p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500 text-slate-200 hover:text-cyan-300 transition-all flex items-center gap-1.5 text-xs font-mono group"
+          >
+            <Linkedin className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
+            <span className="hidden xl:inline">LinkedIn</span>
           </a>
 
         </div>

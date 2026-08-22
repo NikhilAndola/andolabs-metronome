@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   Play, Pause, Volume2, VolumeX, Plus, Minus, 
-  Radio, Zap
+  Radio, Zap, Lock, Smartphone, AlertCircle
 } from 'lucide-react';
 import { webAudioEngine, SoundType } from '../audio/WebAudioEngine';
 import { TimeSignature } from '../types';
@@ -24,11 +24,11 @@ const TIME_SIGNATURES: TimeSignature[] = [
   { beats: 7, noteValue: 8, name: '7/8 Progressive' },
 ];
 
-const SOUND_PRESETS: { type: SoundType; name: string; desc: string }[] = [
-  { type: 'woodblock', name: 'Woodblock', desc: 'Acoustic resonant percussion' },
-  { type: 'digital', name: 'Digital Click', desc: 'Crisp electronic pulse' },
-  { type: 'beep808', name: '808 Pop', desc: 'Punchy low-transient pop' },
-  { type: 'rimshot', name: 'Rimshot', desc: 'Dual-harmonic metal strike' },
+const SOUND_PRESETS: { type: SoundType; name: string; desc: string; isLocked: boolean }[] = [
+  { type: 'digital', name: 'Digital Click', desc: 'Crisp electronic pulse (Active Demo)', isLocked: false },
+  { type: 'woodblock', name: 'Woodblock', desc: 'Acoustic resonant percussion', isLocked: true },
+  { type: 'beep808', name: '808 Pop', desc: 'Punchy low-transient pop', isLocked: true },
+  { type: 'rimshot', name: 'Rimshot', desc: 'Dual-harmonic metal strike', isLocked: true },
 ];
 
 const SUBDIVISIONS: { type: string; factor: number; label: string; notation: string }[] = [
@@ -50,9 +50,10 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
   const [isAccentFlash, setIsAccentFlash] = useState<boolean>(false);
   const [timeSig, setTimeSig] = useState<TimeSignature>(TIME_SIGNATURES[2]); // 4/4
   const [subdivision, setSubdivision] = useState<string>('quarter');
-  const [soundType, setSoundType] = useState<SoundType>('woodblock');
+  const [soundType, setSoundType] = useState<SoundType>('digital'); // Digital Click is available
   const [flashEnabled, setFlashEnabled] = useState<boolean>(true);
   const [volume, setVolume] = useState<number>(0.85);
+  const [lockedNotice, setLockedNotice] = useState<string | null>(null);
 
   // Tap tempo state
   const tapTimesRef = useRef<number[]>([]);
@@ -121,19 +122,28 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
     if (taps.length > 5) taps.shift();
 
     if (taps.length > 1) {
-      let totalDiff = 0;
+      let intervalSum = 0;
       for (let i = 1; i < taps.length; i++) {
-        totalDiff += taps[i] - taps[i - 1];
+        intervalSum += taps[i] - taps[i - 1];
       }
-      const avgDiff = totalDiff / (taps.length - 1);
-      const calculatedBpm = Math.round(60000 / avgDiff);
+      const avgInterval = intervalSum / (taps.length - 1);
+      const calculatedBpm = Math.round(60000 / avgInterval);
       const clampedBpm = Math.max(40, Math.min(280, calculatedBpm));
       setBpm(clampedBpm);
     }
   }, [setBpm]);
 
-  const adjustBpm = (delta: number) => {
+  const handleStepBpm = (delta: number) => {
     setBpm(Math.max(40, Math.min(280, bpm + delta)));
+  };
+
+  const handleSelectSound = (preset: typeof SOUND_PRESETS[0]) => {
+    if (preset.isLocked) {
+      setLockedNotice(`"${preset.name}" is exclusively available in the upcoming AndolaLabs MetroNome Android App.`);
+      setTimeout(() => setLockedNotice(null), 3500);
+      return;
+    }
+    setSoundType(preset.type);
   };
 
   return (
@@ -143,51 +153,73 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
       <div className="text-center space-y-2 mb-6 md:mb-8">
         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-[11px] font-mono text-cyan-400">
           <Radio className="w-3 h-3 animate-pulse" />
-          <span>Interactive Audio Simulator</span>
+          <span>Interactive Web Audio Simulator</span>
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-white tracking-tight">
           AndolaLabs Metronome <span className="gradient-text-cyan">Live Playground</span>
         </h2>
         <p className="text-slate-400 max-w-xl mx-auto text-xs sm:text-sm">
-          Zero-jitter Web Audio timing engine, dynamic sound synthesizer, and real-time beat visualization.
+          Zero-jitter Web Audio timing engine, Lookahead scheduler, and real-time beat visualization.
         </p>
       </div>
 
-      {/* Main Hardware-Style Instrument Shell */}
+      {/* Main Metronome Card Container */}
       <div className={`relative rounded-2xl p-4 sm:p-6 lg:p-7 glass-panel-glow border transition-all duration-300 ${
-        isAccentFlash ? 'border-cyan-400 bg-cyan-950/30 shadow-neon-cyan' : 'border-slate-800 bg-brand-dark/95'
+        isAccentFlash 
+          ? 'border-cyan-400 bg-cyan-950/30 shadow-neon-cyan' 
+          : 'border-slate-800 bg-brand-dark/95'
       }`}>
-        
-        {/* Accent Flash Strobe Layer */}
+
+        {/* Optical Strobe Flash Overlay */}
         {isAccentFlash && flashEnabled && (
           <div className="absolute inset-0 rounded-2xl bg-cyan-400/10 pointer-events-none transition-opacity duration-100" />
         )}
 
+        {/* Android App Web Demo Callout Banner */}
+        <div className="mb-5 p-3 rounded-xl bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-cyan-950/40 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2 text-xs text-slate-300">
+            <Smartphone className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>
+              <strong className="text-white font-semibold">Web Demo Mode:</strong> Digital Click synthesizer active. Full sound presets, hardware haptics, and stage setlists are unlocked in the Android app.
+            </span>
+          </div>
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-700/60 shrink-0 self-start sm:self-auto">
+            COMING TO GOOGLE PLAY
+          </span>
+        </div>
+
+        {/* Toast / Notice for Locked Features */}
+        {lockedNotice && (
+          <div className="mb-4 p-3 rounded-xl bg-amber-950/90 border border-amber-500/50 text-amber-300 text-xs flex items-center justify-between gap-2 animate-fade-in shadow-lg">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>{lockedNotice}</span>
+            </div>
+            <button onClick={() => setLockedNotice(null)} className="text-amber-400 hover:text-white font-mono text-xs">✕</button>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-center">
           
-          {/* LEFT: Central Dial & BPM Controller (7 cols) */}
+          {/* Left Column: Visualizer, Beat Indicator, Tempo Display, Main Controls */}
           <div className="lg:col-span-7 flex flex-col items-center justify-center space-y-4">
             
-            {/* Beat Lights Indicator Bar */}
+            {/* Visual Beat Indicator Dots */}
             <div className="flex items-center gap-2 sm:gap-2.5 p-2 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner">
               {Array.from({ length: timeSig.beats }).map((_, idx) => {
                 const isActive = isPlaying && activeBeat === idx;
                 const isDownbeat = idx === 0;
-
                 return (
-                  <div
-                    key={idx}
-                    className="flex flex-col items-center gap-1 transition-all duration-100"
-                  >
-                    <div
+                  <div key={idx} className="flex flex-col items-center gap-1 transition-all duration-100">
+                    <div 
                       className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-mono font-bold text-xs transition-all duration-100 ${
-                        isActive
-                          ? isDownbeat
+                        isActive 
+                          ? isDownbeat 
                             ? 'bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 shadow-neon-amber scale-105 border border-amber-300'
                             : 'bg-gradient-to-br from-cyan-400 to-blue-500 text-slate-950 shadow-neon-cyan scale-105 border border-cyan-300'
                           : isDownbeat
-                          ? 'bg-slate-900 border border-amber-500/30 text-amber-400/60'
-                          : 'bg-slate-900 border border-slate-800 text-slate-500'
+                            ? 'bg-slate-900 border border-amber-500/30 text-amber-400/60'
+                            : 'bg-slate-900 border border-slate-800 text-slate-500'
                       }`}
                     >
                       {idx + 1}
@@ -200,7 +232,7 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
               })}
             </div>
 
-            {/* Central BPM Display with Tempo Tag */}
+            {/* Tempo Dial & Value */}
             <div className="flex flex-col items-center space-y-1 relative group">
               <div className="text-[10px] uppercase tracking-wider font-mono text-slate-400 flex items-center gap-1.5">
                 <span>TEMPO SPEED</span>
@@ -208,14 +240,13 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
                   {tempoInfo.label}
                 </span>
               </div>
-
-              {/* Numeric BPM Display */}
+              
               <div className="relative font-display font-extrabold text-5xl sm:text-6xl tracking-tighter text-white select-none flex items-baseline">
                 <span className="gradient-text-cyan">{bpm}</span>
                 <span className="text-base sm:text-lg font-mono text-slate-500 ml-1.5 font-normal">BPM</span>
               </div>
 
-              {/* Slider Scrub Bar */}
+              {/* Slider for Smooth Scrubbing */}
               <div className="w-full max-w-sm px-2 pt-1">
                 <input
                   type="range"
@@ -234,22 +265,22 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
               </div>
             </div>
 
-            {/* Stepper Buttons & Tap Tempo */}
+            {/* Fine-Tuning Step Controls & Tap Tempo */}
             <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 pt-1">
               <button
-                onClick={() => adjustBpm(-5)}
+                onClick={() => handleStepBpm(-5)}
                 className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 font-mono text-xs hover:text-white transition-colors"
               >
                 -5
               </button>
               <button
-                onClick={() => adjustBpm(-1)}
+                onClick={() => handleStepBpm(-1)}
                 className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 font-mono text-xs hover:text-white transition-colors"
               >
                 <Minus className="w-3.5 h-3.5" />
               </button>
-
-              {/* TAP TEMPO BUTTON */}
+              
+              {/* Tap Tempo Button */}
               <button
                 onClick={handleTapTempo}
                 className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 hover:border-amber-400 text-amber-300 font-bold font-mono text-xs hover:shadow-neon-amber transition-all flex items-center gap-1.5 active:scale-95"
@@ -259,20 +290,20 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
               </button>
 
               <button
-                onClick={() => adjustBpm(1)}
+                onClick={() => handleStepBpm(1)}
                 className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 font-mono text-xs hover:text-white transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" />
               </button>
               <button
-                onClick={() => adjustBpm(5)}
+                onClick={() => handleStepBpm(5)}
                 className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 font-mono text-xs hover:text-white transition-colors"
               >
                 +5
               </button>
             </div>
 
-            {/* MAIN PLAY / PAUSE TRIGGER */}
+            {/* Giant Start / Stop Engine Button */}
             <div className="pt-2 flex items-center gap-3">
               <button
                 onClick={onTogglePlay}
@@ -298,10 +329,10 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
 
           </div>
 
-          {/* RIGHT: Controls & Sound Settings (5 cols) */}
+          {/* Right Column: Signature, Subdivision, Locked Sound Presets */}
           <div className="lg:col-span-5 space-y-4 bg-slate-950/60 p-4 sm:p-5 rounded-xl border border-slate-800/80">
             
-            {/* Time Signature Selector */}
+            {/* Time Signature */}
             <div>
               <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between mb-1.5">
                 <span>Time Signature</span>
@@ -347,27 +378,46 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
               </div>
             </div>
 
-            {/* Synthesizer Sound Engine Selector */}
+            {/* Synthesizer Sound Engine Selector with Lock State */}
             <div>
               <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between mb-1.5">
                 <span>Sound Synthesis</span>
                 <span className="text-purple-400 font-bold">{soundType}</span>
               </label>
               <div className="grid grid-cols-2 gap-1.5">
-                {SOUND_PRESETS.map((snd) => (
-                  <button
-                    key={snd.type}
-                    onClick={() => setSoundType(snd.type)}
-                    className={`p-2 rounded-lg border text-left transition-all ${
-                      soundType === snd.type
-                        ? 'bg-purple-500/20 border-purple-400 text-purple-200 shadow-neon-purple'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
-                    }`}
-                  >
-                    <div className="font-semibold text-xs text-white">{snd.name}</div>
-                    <div className="text-[10px] text-slate-400 leading-tight mt-0.5">{snd.desc}</div>
-                  </button>
-                ))}
+                {SOUND_PRESETS.map((snd) => {
+                  const isSelected = soundType === snd.type;
+                  return (
+                    <button
+                      key={snd.type}
+                      onClick={() => handleSelectSound(snd)}
+                      className={`p-2 rounded-lg border text-left transition-all relative ${
+                        isSelected
+                          ? 'bg-purple-500/20 border-purple-400 text-purple-200 shadow-neon-purple'
+                          : snd.isLocked
+                          ? 'bg-slate-950/60 border-slate-850 text-slate-500 hover:border-amber-500/40 hover:text-slate-400 cursor-pointer'
+                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`font-semibold text-xs ${isSelected ? 'text-white' : snd.isLocked ? 'text-slate-400' : 'text-slate-200'}`}>
+                          {snd.name}
+                        </span>
+                        {snd.isLocked ? (
+                          <span className="flex items-center gap-1 text-[9px] font-mono font-medium px-1.5 py-0.2 rounded bg-amber-950/70 text-amber-400 border border-amber-800/60">
+                            <Lock className="w-2.5 h-2.5" />
+                            <span>APP</span>
+                          </span>
+                        ) : (
+                          <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
+                            FREE
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[10px] text-slate-500 leading-tight mt-0.5">{snd.desc}</div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -388,7 +438,11 @@ export const MetronomeDemo: React.FC<MetronomeDemoProps> = ({
               </div>
 
               <div className="flex items-center gap-2.5 text-xs font-mono text-slate-400">
-                <button onClick={onToggleMute} className="text-slate-300 hover:text-white">
+                <button 
+                  onClick={onToggleMute}
+                  className="text-slate-300 hover:text-white"
+                  title={isMuted ? "Unmute Sound" : "Mute Sound"}
+                >
                   {isMuted ? <VolumeX className="w-3.5 h-3.5 text-red-400" /> : <Volume2 className="w-3.5 h-3.5 text-cyan-400" />}
                 </button>
                 <input

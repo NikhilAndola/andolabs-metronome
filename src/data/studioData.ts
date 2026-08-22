@@ -64,6 +64,7 @@ export const STUDIO_INFO = {
   creatorRole: "Founder & Software Engineer",
   github: "https://github.com/NikhilAndola",
   githubRepo: "https://github.com/NikhilAndola/andolalabs",
+  linkedin: "https://linkedin.com/in/nikhilandola",
   supportEmail: "support@andolalabs.com",
   location: "Global / Remote",
   establishedYear: 2026,

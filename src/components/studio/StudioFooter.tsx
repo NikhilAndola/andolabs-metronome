@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Github, ShieldCheck, FileText, RotateCcw, Mail, Music } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, ShieldCheck, FileText, RotateCcw, Mail, Music } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { STUDIO_INFO } from '../../data/studioData';
 import andolaLabsIcon from '../../assets/andolalabs_icon.svg';
@@ -60,9 +60,19 @@ export const StudioFooter: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-slate-400 hover:text-cyan-300 transition-colors"
-              title="GitHub"
+              title="GitHub Profile"
             >
               <Github className="w-4 h-4" />
+            </a>
+
+            <a
+              href={STUDIO_INFO.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-slate-400 hover:text-cyan-300 transition-colors"
+              title="LinkedIn Profile"
+            >
+              <Linkedin className="w-4 h-4 text-blue-400" />
             </a>
 
             <button
