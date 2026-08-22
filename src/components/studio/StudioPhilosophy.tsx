@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Github, 
   Mail, 
@@ -10,7 +10,8 @@ import {
   Copy, 
   ExternalLink,
   MessageSquare,
-  ShieldCheck
+  ShieldCheck,
+  Clock
 } from 'lucide-react';
 import { STUDIO_INFO } from '../../data/studioData';
 import andolaLabsIcon from '../../assets/andolalabs_icon.svg';
@@ -23,11 +24,15 @@ const SUBJECT_OPTIONS = [
   'General Tech Discussion',
 ];
 
+const COOLDOWN_SECONDS = 60;
+
 export const StudioPhilosophy: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
+  const [cooldownRemaining, setCooldownRemaining] = useState<number>(0);
+  const [honeypot, setHoneypot] = useState<string>(''); // Silent bot trap
 
   const [formData, setFormData] = useState({
     name: '',
@@ -35,6 +40,25 @@ export const StudioPhilosophy: React.FC = () => {
     subject: SUBJECT_OPTIONS[0],
     message: '',
   });
+
+  // Check rate-limit cooldown from localStorage on mount and interval
+  useEffect(() => {
+    const checkCooldown = () => {
+      const lastSent = localStorage.getItem('andola_last_contact_ts');
+      if (lastSent) {
+        const elapsed = Math.floor((Date.now() - parseInt(lastSent, 10)) / 1000);
+        if (elapsed < COOLDOWN_SECONDS) {
+          setCooldownRemaining(COOLDOWN_SECONDS - elapsed);
+        } else {
+          setCooldownRemaining(0);
+        }
+      }
+    };
+
+    checkCooldown();
+    const interval = setInterval(checkCooldown, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(STUDIO_INFO.supportEmail);
@@ -45,6 +69,23 @@ export const StudioPhilosophy: React.FC = () => {
   const handleSubmitMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
+
+    // 1. Silent Honeypot Bot Trap: If hidden bot field is filled, silently simulate success without sending
+    if (honeypot.trim() !== '') {
+      setSubmitStatus('success');
+      return;
+    }
+
+    // 2. Client-Side Rate-Limit Cooldown Check
+    const lastSent = localStorage.getItem('andola_last_contact_ts');
+    if (lastSent) {
+      const elapsed = Math.floor((Date.now() - parseInt(lastSent, 10)) / 1000);
+      if (elapsed < COOLDOWN_SECONDS) {
+        setSubmitStatus('error');
+        setErrorMessage(`Anti-spam rate limit: Please wait ${COOLDOWN_SECONDS - elapsed}s before sending another message.`);
+        return;
+      }
+    }
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -63,6 +104,7 @@ export const StudioPhilosophy: React.FC = () => {
           _subject: `[Andola Labs Inquiry] ${formData.subject} - from ${formData.name}`,
           subject_category: formData.subject,
           message: formData.message,
+          _honey: honeypot, // Extra Honeypot protection on FormSubmit server
           _template: 'table',
         }),
       });
@@ -70,6 +112,9 @@ export const StudioPhilosophy: React.FC = () => {
       const result = await response.json();
 
       if (response.ok && (result.success === 'true' || result.success === true || response.status === 200)) {
+        // Record timestamp for 60s cooldown
+        localStorage.setItem('andola_last_contact_ts', Date.now().toString());
+        setCooldownRemaining(COOLDOWN_SECONDS);
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: SUBJECT_OPTIONS[0], message: '' });
       } else {
@@ -194,16 +239,37 @@ export const StudioPhilosophy: React.FC = () => {
               <p className="text-slate-300 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
                 Thank you for reaching out. Your message has been routed to <strong>{STUDIO_INFO.supportEmail}</strong>. We typically respond within 24–48 hours.
               </p>
-              <button
-                onClick={() => setSubmitStatus('idle')}
-                className="mt-4 px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono transition-colors"
-              >
-                Send Another Message
-              </button>
+              <div className="pt-2 flex items-center justify-center gap-3">
+                <button
+                  onClick={() => setSubmitStatus('idle')}
+                  disabled={cooldownRemaining > 0}
+                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono transition-colors disabled:opacity-50 flex items-center gap-2"
+                >
+                  {cooldownRemaining > 0 ? (
+                    <>
+                      <Clock className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                      <span>Cooldown ({cooldownRemaining}s)</span>
+                    </>
+                  ) : (
+                    <span>Send Another Message</span>
+                  )}
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmitMessage} className="space-y-5">
               
+              {/* Invisible Honeypot Field for Spambots */}
+              <input
+                type="text"
+                name="_honey"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+
               {submitStatus === 'error' && (
                 <div className="p-3.5 rounded-xl bg-rose-950/80 border border-rose-800/80 text-rose-300 text-xs flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
@@ -275,13 +341,18 @@ export const StudioPhilosophy: React.FC = () => {
                 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs shadow-neon-cyan hover:scale-102 transition-all disabled:opacity-50"
+                  disabled={isSubmitting || cooldownRemaining > 0}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs shadow-neon-cyan hover:scale-102 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
                       <span>Transmitting...</span>
+                    </>
+                  ) : cooldownRemaining > 0 ? (
+                    <>
+                      <Clock className="w-3.5 h-3.5 animate-pulse" />
+                      <span>Cooldown ({cooldownRemaining}s)</span>
                     </>
                   ) : (
                     <>
